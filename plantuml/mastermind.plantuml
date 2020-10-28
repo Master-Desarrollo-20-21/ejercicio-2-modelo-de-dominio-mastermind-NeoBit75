@@ -1,0 +1,54 @@
+@startuml
+
+note "https://en.wikipedia.org/wiki/Mastermind_(board_game)#Gameplay_and_rules" as N1
+Mastermind *-- "2" Player
+Mastermind *-- DecodingBoard
+Mastermind *-- Turn
+Mastermind *-- Rule
+DecodingBoard *-- "13" Row
+Row *-- "4" LargeHole
+Row *-- "4" SmallHole
+
+Row <|-- ShieldedRow
+
+Rule --|> HowManyGamesToPlay
+HowManyGamesToPlay --> Game
+
+Rule --|> ChoosingPattern
+
+Rule --|> ProvidingFeedback
+ProvidingFeedback --> Codemaker
+Rule --|> AlternatingGuessesAndFeedbacks
+Rule --|> GettingPoint
+Rule --|> AndTheWinnerIs
+
+ChoosingPattern --> Codemaker
+GettingPoint --> Codemaker
+
+Rule --|> GuessingPattern
+GuessingPattern --> Codebreaker
+
+Mastermind *-- "2..2n" Game
+Mastermind *-- "*" Peg
+Peg --|> CodePeg
+Player <|-- Codebreaker
+Player <|-- Codemaker
+Codemaker *-- "1..12" Feedback
+Codemaker *-- "1..12" Point
+Codebreaker *-- "1..12" Guess
+Guess o-- "4" CodePeg
+Codemaker *-- Pattern
+Codemaker --> KeyPeg
+CodePeg --|> Green
+CodePeg --|> Blue
+CodePeg --|> Orange
+CodePeg --|> Purple
+CodePeg --|> Yellow
+CodePeg --|> Red
+CodePeg --|> Blank
+Peg --|> KeyPeg
+KeyPeg --|> Black
+KeyPeg --|> White
+Pattern o-- "4" CodePeg
+
+@enduml
